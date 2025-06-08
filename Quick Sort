@@ -1,0 +1,39 @@
+class Solution {
+public:
+   void quickSort(vector<int> &nums , int start , int end){
+       if(start >= end){
+           return;
+       }
+
+       int j = start;
+       int i = j - 1;
+
+       int pivot = end;
+
+       while( j <= pivot){
+           if(nums[j] < nums[pivot]){
+             i++;
+             swap(nums[i] , nums[j]);
+             j++;
+           }
+
+           else{
+              j++;
+           }
+       }
+
+       i++;
+       swap(nums[i] , nums[pivot]);
+
+       quickSort(nums , start , i - 1);
+       quickSort(nums , i + 1 , end);
+   }
+   
+    vector<int> sortArray(vector<int>& nums) {
+        int n = nums.size() - 1;
+
+        quickSort(nums , 0 , n);
+
+        return nums;
+    }
+};
