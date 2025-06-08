@@ -1,0 +1,54 @@
+class Solution {
+public:
+    void solve(vector<int> &nums , int start , int end , int mid){
+        vector<int> ans;
+
+        int ptr1 = start;
+        int ptr2 = mid + 1;
+
+        while(ptr1<= mid && ptr2 <= end){
+            if(nums[ptr1] <= nums[ptr2]){
+                ans.push_back(nums[ptr1]);
+                ptr1++;
+            }
+
+            else{
+                ans.push_back(nums[ptr2]);
+                ptr2++;
+            }
+        }
+
+        while(ptr1 <= mid){
+            ans.push_back(nums[ptr1]);
+            ptr1++;
+        }
+
+        while(ptr2 <= end){
+            ans.push_back(nums[ptr2]);
+            ptr2++;
+        }
+
+        for(int i = start ; i <= end ; i++){
+            nums[i] = ans[i - start];
+        }
+    }
+    void mergeSort(vector<int> &nums , int start , int end){
+        if(start >= end){
+            return;
+        }
+
+        int mid = (start + end) / 2;
+
+        mergeSort(nums , start , mid);
+        mergeSort(nums , mid + 1 , end);
+
+        solve(nums , start , end , mid);
+    }
+    vector<int> sortArray(vector<int>& nums) {
+        int n = nums.size() - 1;
+
+        mergeSort(nums , 0 , n);
+
+        return nums;
+    }
+};
